@@ -529,6 +529,9 @@ bool cortexm_attach(target_s *target)
 	/* Request halt on reset */
 	target_mem32_write32(target, CORTEXM_DEMCR, priv->demcr);
 
+	/* Reset DFSR flags */
+	target_mem32_write32(target, CORTEXM_DFSR, CORTEXM_DFSR_RESETALL);
+
 	/* Find out how many breakpoint slots there are */
 	priv->base.breakpoints_available = CORTEX_MAX_BREAKPOINTS;
 	const uint32_t flash_break_cfg = target_mem32_read32(target, CORTEXM_FPB_CTRL);
